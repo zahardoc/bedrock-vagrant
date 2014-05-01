@@ -1,6 +1,6 @@
 <?php
 
-namespace Bedrock;
+namespace Roots\Bedrock;
 
 use Composer\Script\Event;
 
