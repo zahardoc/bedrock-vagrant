@@ -1,10 +1,15 @@
 {
-  "name": "roots/bedrock",
+  "name": "kanedo/bedrock",
   "type": "project",
   "license": "MIT",
-  "description": "A modern WordPress stack",
+  "description": "A modern WordPress stack with Vagrant",
   "homepage": "http://roots.io/wordpress-stack/",
   "authors": [
+    {
+      "name": "Gabriel Bretschner",
+      "email": "software@kanedo.net",
+      "homepage": "https://blog.kanedo.net"
+    },
     {
       "name": "Scott Walkinshaw",
       "email": "scott.walkinshaw@gmail.com",
