@@ -152,3 +152,30 @@ wp::site {"/var/www":
   subdomains      => false,
   require => [Mysql::Db["${db_name}"],Class['php']]
 }
+
+if $wp_test == 'true' {
+
+  exec { "wptest.xml":
+    command => "curl -L -o /tmp/wptest.xml https://raw.githubusercontent.com/manovotny/wptest/master/wptest.xml",
+    creates => "/var/www/wptest.xml",
+    require => Wp::Site["/var/www"]
+  } 
+
+  wp::command{ 'wordpress-importer':
+    location => "/var/www",
+    command  => "plugin install wordpress-importer --activate",
+    require => Wp::Site["/var/www"]
+  }
+
+  wp::command{ '/var/www':
+    location        =>  '/var/www',
+    command => "import /tmp/wptest.xml --authors=create",
+    require => [Exec['wptest.xml'], Wp::Command['wordpress-importer']],
+    notify  => Exec['remove-wptest.xml']
+  }
+
+  exec { "remove-wptest.xml":
+    command => "rm /tmp/wptest.xml",
+    refreshonly => true
+  }
+}
