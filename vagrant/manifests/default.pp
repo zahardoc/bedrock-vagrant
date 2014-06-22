@@ -23,7 +23,8 @@ package { [
     'curl',
     'git-core',
     'zip',
-    'nano'
+    'nano',
+    'subversion'
   ]:
   ensure  => 'installed',
 }
@@ -178,4 +179,30 @@ if $wp_test == 'true' {
     command => "rm /tmp/wptest.xml",
     refreshonly => true
   }
+}
+
+if $wp_dev_plugin == 'true' {
+
+  if $wp_dev_plugin_test == 'false' or $wp_test == 'false'{
+    notify{'skip-tests':}
+    exec {"/var/www wp scaffold plugin $wp_dev_plugin_name --activate --skip-tests":
+      command => "/usr/bin/wp scaffold plugin $wp_dev_plugin_name --activate --skip-tests",
+      cwd => '/var/www',
+      user => 'www-data',
+      require => [ Wp::Site["/var/www"] ],
+      creates => "/var/www/web/app/plugins/$wp_dev_plugin_name"
+    }
+  }
+  elsif $wp_dev_plugin_test == 'true' or $wp_test == 'true'{
+    exec {"/var/www wp scaffold plugin $wp_dev_plugin_name --activate":
+      command => "/usr/bin/wp scaffold plugin $wp_dev_plugin_name --activate",
+      cwd => '/var/www',
+      user => 'www-data',
+      require => [ Wp::Site["/var/www"] ],
+      creates => "/var/www/web/app/plugins/$wp_dev_plugin_name",
+    }
+
+  }
+
+  
 }
