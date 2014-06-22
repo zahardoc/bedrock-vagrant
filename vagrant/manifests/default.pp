@@ -46,8 +46,7 @@ apache::vhost { "${wp_host}":
   serveraliases => [ ],
   docroot       => '/var/www/web/',
   port          => '80',
-  env_variables => [],
-  priority      => '1',
+  priority      => '0',
 }
 
 class { 'php':
@@ -141,9 +140,15 @@ database_grant { "${db_user}@%/${db_name}":
   privileges => ['all'] ,
 }
 
-wp::site {"${wp_site_title}":
-    location => '/var/www/web/wp',
-    url => $wp_home,
-    name => $wp_site_title,
-    require => [Mysql::Db["${db_name}"],Class['php']]
+wp::site {"/var/www":
+  location        =>  '/var/www',
+  url             =>  $wp_home,
+  siteurl         =>  $wp_home,
+  sitename        =>  $wp_site_title,
+  admin_user      =>  $wp_site_admin_name,
+  admin_email     =>  $wp_site_admin_email,
+  admin_password  =>  $wp_site_admin_pw,
+  network         => false,
+  subdomains      => false,
+  require => [Mysql::Db["${db_name}"],Class['php']]
 }
