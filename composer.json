@@ -32,21 +32,6 @@
     {
       "type": "composer",
       "url": "http://wpackagist.org"
-    },
-    {
-      "type": "package",
-      "package": {
-        "name": "wordpress/wordpress",
-        "version": "3.9.1",
-        "type": "webroot",
-        "dist": {
-          "type": "zip",
-          "url": "https://wordpress.org/wordpress-3.9.1.zip"
-        },
-        "require" : {
-          "fancyguy/webroot-installer": "1.1.0"
-        }
-      }
     }
   ],
   "require": {
