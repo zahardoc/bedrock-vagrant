@@ -1,24 +1,14 @@
 {
-  "name": "kanedo/bedrock",
+  "name": "kanedo/bedrock-vagrant",
   "type": "project",
   "license": "MIT",
-  "description": "A modern WordPress stack with Vagrant",
-  "homepage": "http://roots.io/wordpress-stack/",
+  "description": "A modern WordPress stack with Vagrant forked from roots/bedrock",
+  "homepage": "http://kanedo.net",
   "authors": [
     {
       "name": "Gabriel Bretschner",
       "email": "software@kanedo.net",
       "homepage": "https://blog.kanedo.net"
-    },
-    {
-      "name": "Scott Walkinshaw",
-      "email": "scott.walkinshaw@gmail.com",
-      "homepage": "https://github.com/swalkinshaw"
-    },
-    {
-      "name": "Ben Word",
-      "email": "ben@benword.com",
-      "homepage": "https://github.com/retlehs"
     }
   ],
   "keywords": [
@@ -61,7 +51,7 @@
   ],
   "require": {
     "php": ">=5.3.2",
-    "wordpress/wordpress": "3.9.1",
+    //"wordpress/wordpress": "3.9.1",
     "fancyguy/webroot-installer": "1.1.0",
     "composer/installers": "v1.0.12",
     "vlucas/phpdotenv": "~1.0.6"

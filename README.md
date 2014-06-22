@@ -1,6 +1,7 @@
-# [Bedrock](http://roots.io/wordpress-stack/)
+# Bedrock-Vagrant
 
-Bedrock is a modern WordPress stack that helps you get started with the best development tools and project structure.
+This is a fork of Bedrock with a default vagrant setup.
+[Bedrock](http://roots.io/wordpress-stack/) is a modern WordPress stack that helps you get started with the best development tools and project structure.
 
 ## Quick Start
 
@@ -26,6 +27,7 @@ Note: While this is a project from the guys behind the [Roots starter theme](htt
 * Git
 * PHP >= 5.3.2 (for Composer)
 * Ruby >= 1.9 (for Capistrano)
+* Vagrant
 
 If you aren't interested in using a part, then you don't need its requirements either. Not deploying with Capistrano? Then don't worry about Ruby for example.
 
@@ -166,13 +168,42 @@ Bedrock tries to separate config from code as much as possible and environment v
 
 [PHP dotenv](https://github.com/vlucas/phpdotenv) is used to load the `.env` file. All variables are then available in your app by `getenv`, `$_SERVER`, or `$_ENV`.
 
-Currently, the following env vars are required:
+#### Database
+```
+  # Database Configuration
+  DB_NAME=database_name
+  DB_USER=database_user
+  DB_PASSWORD=database_password
+  DB_HOST=localhost
+```
+#### WordPress environment
+```
+  ########################
+  # WP Env configuration #
+  ########################
+  WP_ENV=development
+  WP_HOST=example.dev
+  WP_HOME=http://example.dev
+  WP_SITEURL=http://example.dev/wp
+  WP_SITE_TITLE="Test Site"
+  WP_SITE_ADMIN_NAME=admin
+  WP_SITE_ADMIN_PW=vagrant
+  WP_SITE_ADMIN_EMAIL=admin@example.com
 
-* `DB_USER`
-* `DB_NAME`
-* `DB_PASSWORD`
-* `WP_HOME`
-* `WP_SITEURL`
+```
+#### Theme Unit tests
+to install unit-test data from [wptest.io](http://wptest.io) set
+```
+  WP_TEST=true
+```
+#### Plugin scaffolding
+if you develop a plugin and want to use `wp-cli`'s scaffolding set `WP_DEV_PLUGIN` to true and configure your plugin slug with `WP_DEV_PLUGIN_NAME`. By default `wp-cli` installs unit-tests. To prevent that set `WP_DEV_PLUGIN_TEST` to `true`.
+
+```
+  # WP_DEV_PLUGIN=true
+  # WP_DEV_PLUGIN_NAME=plugin-name
+  # WP_DEV_PLUGIN_TEST=true
+``` 
 
 #### Don't want it?
 
@@ -263,12 +294,6 @@ Bedrock disables the internal WP Cron via `define('DISABLE_WP_CRON', true);`. If
 Bedrock works with [WP-CLI](http://wp-cli.org/) just like any other WordPress project would. Previously we required WP-CLI in our `composer.json` file as a dependency. This has been removed since WP-CLI now recommends installing it globally with a `phar` file. It also caused conflicts if you tried using a global install.
 
 The `wp` command will automatically pick up Bedrock's subdirectory install as long as you run commands from within the project's directory (or deeper). Bedrock includes a `wp-cli.yml` file that sets the `path` option to `web/wp`. Use this config file for any further [configuration](http://wp-cli.org/config/).
-
-## Vagrant/Ansible
-
-Vagrant and Ansible integration with Bedrock can now be found in the separate [bedrock-ansible](https://github.com/roots/bedrock-ansible) project. Basic instructions exist in that project's README, but if you want a Vagrant box tied to a specific Bedrock based WP application, copy the example `Vagrantfile` into your app's repo and edit the necessary file paths.
-
-Note that using Ansible you no longer need to manually create/edit a `.env` file (or use `composer create-project` to generate one). Ansible will generate a `.env` based on its config and automatically generate salts/keys.
 
 ## Todo
 
