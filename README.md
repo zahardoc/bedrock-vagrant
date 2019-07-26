@@ -5,7 +5,7 @@ This is a fork of Bedrock with a default vagrant setup.
 
 ## Quick Start
 
-Run `composer create-project kanedo/bedrock <path>` (see [Installation/Usage](#installationusage) for more details)
+Run `composer create-project roots/bedrock <path>` (see [Installation/Usage](#installationusage) for more details)
 Run `cp .env.example .env` and modify to your needs
 Run `vagrant up`
 
